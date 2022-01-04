@@ -1,6 +1,6 @@
 SHELL = /bin/sh
 
-default: create_snowflake_account_objs create_snowflake_raw_db_objs
+default: create_snowflake_account_objs create_snowflake_raw_db_objs load_ip_data
 
 config_file=ip/config.json
 
