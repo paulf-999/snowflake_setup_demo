@@ -29,7 +29,7 @@ install:
 	# install SnowSQL
 	@cd tmp && installer -pkg snowsql-darwin_x86_64.pkg -target CurrentUserHomeDirectory
 	# optional (for .z-shell only: add an alias to snowsql to your profile)
-	@echo "alias snowsql=~/Applications/SnowSQL.app/Contents/MacOS/snowsql" >> ~/.zshrc && source ~/.zshrc
+	#@echo "alias snowsql=~/Applications/SnowSQL.app/Contents/MacOS/snowsql" >> ~/.zshrc && source ~/.zshrc
 	# Create a Snowflake connection profile
 	@sed "s/%program/${program_lower}/g" ip/conn_profile.txt > tmp/conn_profile.txt
 	@sed -i -e "s/%sf_acc_name/${sf_acc_name}/g" tmp/conn_profile.txt
@@ -65,7 +65,7 @@ create_snowflake_account_objs:
 create_snowflake_raw_db_objs:
 	$(info [+] Create the snowflake RAW db objects)
 	@${snowsql_query} -f database_objects/raw_db/table/v1_sales_tbls.sql --variable program=${program}
-	@${snowsql_query} -f ddatabase_objects/raw_db/table/v1_production_tbls.sql --variable program=${program}
+	@${snowsql_query} -f database_objects/raw_db/table/v1_production_tbls.sql --variable program=${program}
 
 load_ip_data:
 	$(info [+] Create stages, upload files to stage then load into target tables)
