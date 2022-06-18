@@ -1,4 +1,4 @@
-SHELL = /bin/sh
+SHELL = /bin/zsh
 
 default: create_snowflake_account_objs create_snowflake_raw_db_objs load_ip_data
 
@@ -7,7 +7,7 @@ config_file=ip/config.json
 $(eval program=$(shell jq '.Parameters.program' ${config_file}))
 $(eval program_upper=$(shell echo $(program) | tr 'a-z' 'A-Z'))
 $(eval program_lower=$(shell echo $(program) | tr 'A-Z' 'a-z'))
-$(eval sf_conn_profile=$(shell echo $(program) | tr 'A-Z' 'a-z'))
+$(eval sf_conn_profile=$(shell echo 'bike_shop' | tr 'A-Z' 'a-z'))
 $(eval bootstrap_version=$(shell jq '.Parameters.bootstrap_version' ${config_file}))
 $(eval snowsql_version=$(shell jq '.Parameters.snowsql_version' ${config_file}))
 $(eval snowsql_installer_path=$(shell jq '.Parameters.snowsql_installer_path' ${config_file}))
@@ -16,6 +16,9 @@ $(eval sf_username=$(shell jq '.Parameters.SnowflakeParams.sf_username' ${config
 $(eval sf_pass=$(shell jq '.Parameters.SnowflakeParams.sf_pass' ${config_file}))
 
 snowsql_query=snowsql -c ${sf_conn_profile} -o friendly=false -o header=false -o timing=false
+
+beep:
+	${snowsql_query}
 
 installations: deps install clean
 
